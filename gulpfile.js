@@ -78,25 +78,25 @@ gulp.task('fonts', function () {
         .pipe(reload({stream:true}));
 });
 
-gulp.task('images', function () {
+gulp.task('images', function(){
     return gulp.src(path.src.images + '**/*')
         .pipe(cache(imagemin([
-            imagemin.gifsicle({interlaced: true}), //сжатие .gif
-            imagemin.jpegtran({progressive: true}), //сжатие .jpeg
-            imagemin.optipng({optimizationLevel: 5}), //сжатие .png
-            imagemin.svgo({                         // сжатие .svg
-                plugins: [
-                    {removeViewBox: true},
-                    {cleanupIDs: false}
-                ]
+                imagemin.gifsicle({interlaced: true}), //сжатие .gif
+                imagemin.jpegtran({progressive: true}), //сжатие .jpeg
+                imagemin.optipng({optimizationLevel: 5}), //сжатие .png
+                imagemin.svgo({                         // сжатие .svg
+                    plugins: [
+                        {removeViewBox: true},
+                        {cleanupIDs: false}
+                    ]
+                })
+            ], {
+                verbose: true  //отображает инфо о сжатии изображения
             })
-        ], {
-            verbose: true  //отображает инфо о сжатии изображения
-        })
-    ))
-    .pipe(gulp.dest(path.src.images))
-    .pipe(gulp.dest(path.build.images))
-    .pipe(reload({stream: true}));
+        ))
+        .pipe(gulp.dest(path.src.images))
+        .pipe(gulp.dest(path.build.images))
+        .pipe(reload({stream: true}));
 });
 gulp.task('build', shell.task([
     'gulp clean',
